@@ -197,7 +197,7 @@ echo "##############################"
 cd /tmp/
 git clone https://github.com/it-novum/openITCOCKPIT-workshops.git info
 
-cd -r /tmp/info/info /opt/openitc/frontend/webroot/
+cp -r /tmp/info/info /opt/openitc/frontend/webroot/
 chown www-data:www-data -R /opt/openitc/frontend/webroot/info
 
 cat <<EOT > /opt/openitc/frontend/webroot/info/info.xml
@@ -242,13 +242,18 @@ echo "#         Setup motd         #"
 echo "#                            #"
 echo "##############################"
 
+
+
 cat <<EOT > /etc/update-motd.d/99-oitc
 #!/bin/bash
+
+IP=\$(curl https://statusengine.io/getip.php)
+
 echo ""
 echo "######### openITCOCKPIT Workshop #########"
 echo "#  Monitoring Server"
 echo "#"
-echo "# Please navigate to https://xxx.xxx.xxx.xxx/info for more information"
+echo "# Please navigate to https://\${IP}/info for more information"
 echo "##########################################"
 echo ""
 EOT
@@ -256,6 +261,9 @@ EOT
 chmod +x /etc/update-motd.d/99-oitc
 
 # Print messages
+echo ""
+echo ""
+echo ""
 /etc/update-motd.d/99-oitc
 
 
