@@ -19,6 +19,6 @@ Web based SSH terminal
 ![Web based SSH terminal](/screenshots/webbased_ssh_terminal.png)
 
 Installation of openITCOCKPIT
-![openITCOCKPIT Login Screen](/screenshots/openitcockpit_login.png)
+![openITCOCKPIT Login Screen](/screenshots/openitcockpit_login.jpg)
 
 
