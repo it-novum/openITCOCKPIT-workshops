@@ -2,6 +2,8 @@
 set -e
 export DEBIAN_FRONTEND=noninteractive
 
+PWD=$(pwd)
+
 if ! [ $(id -u) = 0 ]; then
     echo "You need to run this script as root user or via sudo!"
     exit 1
@@ -54,7 +56,7 @@ echo "##############################"
 
 cd /root/
 
-wget https//deb.nodesource.com/setup_14.x
+wget https://deb.nodesource.com/setup_14.x
 cat setup_14.x | bash
 apt-get install -y nodejs
 
@@ -173,13 +175,13 @@ cat <<EOT >> /etc/nginx/openitc/custom.conf
 location ^~/terminal {
     proxy_pass http://127.0.0.1:3000/terminal;
     proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Upgrade \$http_upgrade;
     proxy_set_header Connection "upgrade";
     proxy_read_timeout 43200000;
 
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header Host \$http_host;
     proxy_set_header X-NginX-Proxy true;
 }
 EOT
@@ -192,8 +194,11 @@ echo "#       Setup info page      #"
 echo "#                            #"
 echo "##############################"
 
-cd /opt/openitc/frontend/webroot/
+cd /tmp/
 git clone https://github.com/it-novum/openITCOCKPIT-workshops.git info
+
+cd -r /tmp/info/info /opt/openitc/frontend/webroot/
+chown www-data:www-data -R /opt/openitc/frontend/webroot/info
 
 cat <<EOT > /opt/openitc/frontend/webroot/info/info.xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -231,6 +236,29 @@ cat <<EOT > /opt/openitc/frontend/webroot/info/info.xml
 </info>
 EOT
 
+echo "##############################"
+echo "#                            #"
+echo "#         Setup motd         #"
+echo "#                            #"
+echo "##############################"
 
+cat <<EOT > /etc/update-motd.d/99-oitc
+#!/bin/bash
+echo ""
+echo "######### openITCOCKPIT Workshop #########"
+echo "#  Monitoring Server"
+echo "#"
+echo "# Please navigate to https://xxx.xxx.xxx.xxx/info for more information"
+echo "##########################################"
+echo ""
+EOT
+
+chmod +x /etc/update-motd.d/99-oitc
+
+# Print messages
+/etc/update-motd.d/99-oitc
+
+
+cd $PWD
 
 
