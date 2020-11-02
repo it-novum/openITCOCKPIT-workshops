@@ -10,5 +10,15 @@ This Repository contains all contains all necessary files, to setup an openITCOC
 3. Run `install.sh`
 4. Navigate to `https://192.168.xxx.xxx/info/`
 
+### Features
+
+Overview of all credentials
+![Overview of all credentials](/screenshots/credentials_overview.png)
+
+Web based SSH terminal
+![Web based SSH terminal](/screenshots/webbased_ssh_terminal.png)
+
+Installation of openITCOCKPIT
+![openITCOCKPIT Login Screen](/screenshots/openitcockpit_login.png)
 
 

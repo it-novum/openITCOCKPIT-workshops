@@ -137,16 +137,7 @@ EOT
 
 # Insert license into database
 mysql --defaults-extra-file=${INIFILE} -e "TRUNCATE TABLE \`registers\`;"
-mysql --defaults-extra-file=${INIFILE} -e "INSERT INTO \`registers\` (\`license\`, \`accepted\`, \`apt\`)VALUES('${INIFILE}', 1, 1);"
-
-echo "##############################"
-echo "#                            #"
-echo "#   Enable MySQL root user   #"
-echo "#                            #"
-echo "##############################"
-
-mysql --defaults-extra-file=${DEBIANCNF} -e "UPDATE mysql.user SET plugin='mysql_native_password' WHERE user='root';"
-mysql --defaults-extra-file=${DEBIANCNF} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${PASSWORD}';"
+mysql --defaults-extra-file=${INIFILE} -e "INSERT INTO \`registers\` (\`license\`, \`accepted\`, \`apt\`)VALUES('${LICENSE}', 1, 1);"
 
 echo "##############################"
 echo "#                            #"
@@ -163,6 +154,16 @@ echo "phpmyadmin phpmyadmin/app-password-confirm password $PMA_PASSWORD" | debco
 echo "phpmyadmin phpmyadmin/internal/skip-preseed boolean true" | debconf-set-selections
 
 apt-get install -y phpmyadmin
+
+echo "##############################"
+echo "#                            #"
+echo "#   Enable MySQL root user   #"
+echo "#                            #"
+echo "##############################"
+
+mysql --defaults-extra-file=${DEBIANCNF} -e "UPDATE mysql.user SET plugin='mysql_native_password' WHERE user='root';"
+mysql --defaults-extra-file=${DEBIANCNF} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${PASSWORD}';"
+
 
 echo "##############################"
 echo "#                            #"
