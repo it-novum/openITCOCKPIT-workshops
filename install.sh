@@ -181,9 +181,11 @@ echo "#   Enable MySQL root user   #"
 echo "#                            #"
 echo "##############################"
 
-mysql --defaults-extra-file=${DEBIANCNF} -e "UPDATE mysql.user SET plugin='mysql_native_password' WHERE User='root';"
-mysql --defaults-extra-file=${DEBIANCNF} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${PASSWORD}';"
+mysql --defaults-extra-file=${DEBIANCNF} -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY '${PASSWORD}';"
 mysql --defaults-extra-file=${DEBIANCNF} -e "FLUSH PRIVILEGES;"
+
+#mysql --defaults-extra-file=${DEBIANCNF} -e "UPDATE mysql.user SET plugin='mysql_native_password' WHERE User='root';"
+#mysql --defaults-extra-file=${DEBIANCNF} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${PASSWORD}';"
 
 echo "##############################"
 echo "#                            #"
