@@ -22,12 +22,32 @@ FIRSTNAME="Work"
 LASTNAME="Shop"
 LICENSE="e5aef99e-817b-0ff5-3f0e-140c1f342792"
 
+USE_MANAGEMENT_SERVER="0"
+MANAGEMENT_SERVER=""
+
+if [ -n "$1" ]; then
+    USE_MANAGEMENT_SERVER="1"
+    MANAGEMENT_SERVER="$1"
+fi
+
 #MySQL Configs
 INIFILE=/opt/openitc/etc/mysql/mysql.cnf
 DUMPINIFILE=/opt/openitc/etc/mysql/dump.cnf
 BASHCONF=/opt/openitc/etc/mysql/bash.conf
 DEBIANCNF=/etc/mysql/debian.cnf
 #####################################
+
+
+if [ "$USE_MANAGEMENT_SERVER" -eq "1" ]; then
+    
+    echo "##############################"
+    echo "#                            #"
+    echo "#   Query license from MGMT  #"
+    echo "#                            #"
+    echo "##############################"
+    
+    LICENSE=$(curl http://$MANAGEMENT_SERVER/index.php\?action=license)
+fi
 
 echo "##############################"
 echo "#                            #"
@@ -161,9 +181,9 @@ echo "#   Enable MySQL root user   #"
 echo "#                            #"
 echo "##############################"
 
-mysql --defaults-extra-file=${DEBIANCNF} -e "UPDATE mysql.user SET plugin='mysql_native_password' WHERE user='root';"
+mysql --defaults-extra-file=${DEBIANCNF} -e "UPDATE mysql.user SET plugin='mysql_native_password' WHERE User='root';"
 mysql --defaults-extra-file=${DEBIANCNF} -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${PASSWORD}';"
-
+mysql --defaults-extra-file=${DEBIANCNF} -e "FLUSH PRIVILEGES;"
 
 echo "##############################"
 echo "#                            #"
@@ -266,6 +286,29 @@ echo ""
 echo ""
 echo ""
 /etc/update-motd.d/99-oitc
+
+if [ "$USE_MANAGEMENT_SERVER" -eq "1" ]; then
+    
+    IP=$(curl https://statusengine.io/getip.php)
+    
+    echo "##############################"
+    echo "#                            #"
+    echo "#   Register at mgmt server  #"
+    echo "#                            #"
+    echo "##############################"
+
+    hostname=$(hostname)
+
+    curl -d "hostname=${hostname}&ipaddress=${IP}&password=${PASSWORD}" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://$MANAGEMENT_SERVER/index.php\?action=new_system
+fi
+
+echo "##############################"
+echo "#                            #"
+echo "#       Load bash.rc         #"
+echo "#                            #"
+echo "##############################"
+echo 'export PS1="\[\033[38;5;7m\][\A]\[$(tput sgr0)\]\[\033[38;5;196m\]\u\[$(tput sgr0)\]\[\033[38;5;33m\]@\h:\[$(tput sgr0)\]\[\033[38;5;39m\]\w\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"' >> /root/.bashrc
+
 
 
 cd $PWD

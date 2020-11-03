@@ -22,3 +22,11 @@ Installation of openITCOCKPIT
 ![openITCOCKPIT Login Screen](/screenshots/openitcockpit_login.jpg)
 
 
+### Enterprise Workshops
+Especially for Workshops where openITCOCKPIT Enterprise Modules should be used it is recommended setup and manage the Workshop VMs due to the Management Server from:
+
+https://github.com/it-novum/openITCOCKPIT-workshops-enterprise
+
+Run: `./install.sh "IP-OF-MGMT-SERVER"`
+
+
