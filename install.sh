@@ -271,7 +271,7 @@ IP=\$(curl https://statusengine.io/getip.php)
 
 echo ""
 echo "######### openITCOCKPIT Workshop #########"
-echo "#  Monitoring Server"
+echo "# openITCOCKPIT Monitoring Server"
 echo "#"
 echo "# Please navigate to https://\${IP}/info for more information"
 echo "##########################################"
