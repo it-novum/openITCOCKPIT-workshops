@@ -42,7 +42,7 @@ error_reporting(E_ALL);
                     <h3 class="title"><?= htmlspecialchars($service->name); ?></h3>
                     <?php if(strlen($service->description) > 0): ?>
                         <p class="description">
-                            <?= htmlspecialchars($service->description); ?>
+                            <?= nl2br(htmlspecialchars($service->description)); ?>
                         </p>
                     <?php endif; ?>
                     <div class="example">
