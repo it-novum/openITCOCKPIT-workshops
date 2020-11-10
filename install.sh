@@ -159,6 +159,9 @@ EOT
 mysql --defaults-extra-file=${INIFILE} -e "TRUNCATE TABLE \`registers\`;"
 mysql --defaults-extra-file=${INIFILE} -e "INSERT INTO \`registers\` (\`license\`, \`accepted\`, \`apt\`)VALUES('${LICENSE}', 1, 1);"
 
+# Disable Usage Stats
+mysql --defaults-extra-file=${INIFILE} -e "UPDATE \`systemsettings\` SET \`value\` = '0' WHERE \`systemsettings\`.\`key\` = 'SYSTEM.ANONYMOUS_STATISTICS'"
+
 echo "##############################"
 echo "#                            #"
 echo "#      Setup phpMyAdmin      #"
