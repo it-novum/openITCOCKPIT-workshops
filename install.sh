@@ -270,7 +270,7 @@ echo "##############################"
 cat <<EOT > /etc/update-motd.d/99-oitc
 #!/bin/bash
 
-IP=\$(curl https://statusengine.io/getip.php)
+IP=\$(curl ifconfig.io)
 
 echo ""
 echo "######### openITCOCKPIT Workshop #########"
@@ -291,7 +291,7 @@ echo ""
 
 if [ "$USE_MANAGEMENT_SERVER" -eq "1" ]; then
     
-    IP=$(curl https://statusengine.io/getip.php)
+    IP=$(curl ifconfig.io)
     
     echo "##############################"
     echo "#                            #"
