@@ -68,17 +68,17 @@ rm -rf /tmp/sshd_config /tmp/sshd_config2
 
 systemctl restart sshd
 
-#echo "##############################"
-#echo "#                            #"
-#echo "#       Setup NodeJS 14      #"
-#echo "#                            #"
-#echo "##############################"
-#
-#cd /root/
-#
-#wget https://deb.nodesource.com/setup_14.x
-#cat setup_14.x | bash
-#apt-get install -y nodejs
+echo "##############################"
+echo "#                            #"
+echo "#       Setup NodeJS 18      #"
+echo "#                            #"
+echo "##############################"
+
+cd /root/
+
+wget https://deb.nodesource.com/setup_18.x
+cat setup_18.x | bash
+apt-get install -y nodejs
 
 echo "##############################"
 echo "#                            #"
