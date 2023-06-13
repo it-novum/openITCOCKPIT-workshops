@@ -269,8 +269,8 @@ echo "##############################"
 cat <<EOT > /etc/update-motd.d/99-oitc
 #!/bin/bash
 
-IP=$(curl --silent ifconfig.io)
-#IP=$(hostname -I | awk '{print $1}')
+IP=\$(curl --silent ifconfig.io)
+#IP=\$(hostname -I | awk '{print $1}')
 
 echo ""
 echo "######### openITCOCKPIT Workshop #########"
