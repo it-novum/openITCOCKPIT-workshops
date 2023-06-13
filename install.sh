@@ -122,10 +122,11 @@ echo "#                            #"
 echo "##############################"
 
 add-apt-repository universe
-apt-get install -y apt-transport-https curl gnupg2 ca-certificates
-curl https://packages.openitcockpit.io/repokey.txt | apt-key add -
+apt-get install -y apt-transport-https curl gnupg2 ca-certificates pwgen
 
-echo "deb https://packages.openitcockpit.io/openitcockpit/$(lsb_release -sc)/stable $(lsb_release -sc) main" > /etc/apt/sources.list.d/openitcockpit.list
+mkdir -p /etc/apt/keyrings
+curl https://packages.openitcockpit.io/repokey.txt | tee /etc/apt/keyrings/oitc-keyring.asc
+echo "deb [signed-by=/etc/apt/keyrings/oitc-keyring.asc] https://packages.openitcockpit.io/openitcockpit/$(lsb_release -sc)/stable $(lsb_release -sc) main" > /etc/apt/sources.list.d/openitcockpit.list
 
 # Add license to apt so we can install CE/EE packages at this point
 mkdir -p /etc/apt/auth.conf.d
