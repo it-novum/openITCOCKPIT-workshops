@@ -265,8 +265,6 @@ echo "#         Setup motd         #"
 echo "#                            #"
 echo "##############################"
 
-
-
 cat <<EOT > /etc/update-motd.d/99-oitc
 #!/bin/bash
 
@@ -277,7 +275,7 @@ echo ""
 echo "######### openITCOCKPIT Workshop #########"
 echo "# openITCOCKPIT Monitoring Server"
 echo "#"
-echo "# Please navigate to https://${IP}/info for more information"
+echo "# Please navigate to https://\${IP}/info for more information"
 echo "##########################################"
 echo ""
 EOT
@@ -291,7 +289,7 @@ echo ""
 /etc/update-motd.d/99-oitc
 
 if [ "$USE_MANAGEMENT_SERVER" -eq "1" ]; then
-    
+
     IP=$(curl ifconfig.io)
     #IP=$(hostname -I | awk '{print $1}')
     
