@@ -5,9 +5,9 @@ This Repository contains all contains all necessary files, to setup an openITCOC
 
 ## Setup openITCOCKPIT Monitoring Server
 
-1. Create a new Ubuntu 20.04 VM.
+1. Create a new Ubuntu VM (20.04 / 22.04).
 2. Clone this repository.
-3. Run `install.sh`
+3. Run `install.sh` or `install.sh "[MGMT-IP]"` 
 4. Navigate to `https://192.168.xxx.xxx/info/`
 
 ### Features
