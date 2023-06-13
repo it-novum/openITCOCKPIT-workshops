@@ -271,6 +271,7 @@ cat <<EOT > /etc/update-motd.d/99-oitc
 #!/bin/bash
 
 IP=\$(curl ifconfig.io)
+#IP=\$(hostname -I | awk '{print $1}')
 
 echo ""
 echo "######### openITCOCKPIT Workshop #########"
@@ -292,6 +293,7 @@ echo ""
 if [ "$USE_MANAGEMENT_SERVER" -eq "1" ]; then
     
     IP=$(curl ifconfig.io)
+    #IP=\$(hostname -I | awk '{print $1}')
     
     echo "##############################"
     echo "#                            #"
