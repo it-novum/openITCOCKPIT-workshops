@@ -270,14 +270,14 @@ echo "##############################"
 cat <<EOT > /etc/update-motd.d/99-oitc
 #!/bin/bash
 
-IP=\$(curl ifconfig.io)
-#IP=\$(hostname -I | awk '{print $1}')
+IP=$(curl --silent ifconfig.io)
+#IP=$(hostname -I | awk '{print $1}')
 
 echo ""
 echo "######### openITCOCKPIT Workshop #########"
 echo "# openITCOCKPIT Monitoring Server"
 echo "#"
-echo "# Please navigate to https://\${IP}/info for more information"
+echo "# Please navigate to https://${IP}/info for more information"
 echo "##########################################"
 echo ""
 EOT
@@ -293,7 +293,7 @@ echo ""
 if [ "$USE_MANAGEMENT_SERVER" -eq "1" ]; then
     
     IP=$(curl ifconfig.io)
-    #IP=\$(hostname -I | awk '{print $1}')
+    #IP=$(hostname -I | awk '{print $1}')
     
     echo "##############################"
     echo "#                            #"
@@ -303,7 +303,7 @@ if [ "$USE_MANAGEMENT_SERVER" -eq "1" ]; then
 
     hostname=$(hostname)
 
-    curl -d "hostname=${hostname}&ipaddress=${IP}&password=${PASSWORD}" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://$MANAGEMENT_SERVER/index.php\?action=new_system
+    curl -d "hostname=${hostname}&ipaddress=${IP}&password=${PASSWORD}" -H "Content-Type: application/x-www-form-urlencoded" -X POST http://${MANAGEMENT_SERVER}/index.php\?action=new_system
 fi
 
 echo "##############################"
